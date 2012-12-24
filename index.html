@@ -2,8 +2,20 @@
 <html>
 <head>
     <title></title>
+    <script type="text/javascript" src="vendor/require.js" data-main="js/main.js"></script>
 </head>
 <body>
+    <div class="container">
+        Editable: <input type="checkbox" data-bind="checked: isEditable" />
+        <ul data-bind="template: { name: selectTemplate, foreach: items }"></ul>
+    </div>
 
+    <script id="view">
+        <li data-bind="text: name"></li>
+    </script>
+
+    <script id="edit">
+        <input data-bind="value: name"></li>
+    </script>
 </body>
 </html>
