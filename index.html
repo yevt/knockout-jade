@@ -7,15 +7,15 @@
 <body>
     <div class="container">
         Editable: <input type="checkbox" data-bind="checked: isEditable" />
-        <ul data-bind="template: { name: selectTemplate, foreach: items }"></ul>
+        <ul data-bind="template: { name: selectTemplate, data: {name:2} }"></ul>
     </div>
 
-    <script id="view">
+    <div id="view">
         <li data-bind="text: name"></li>
-    </script>
+    </div>
 
-    <script id="edit">
+    <div id="edit">
         <input data-bind="value: name"></li>
-    </script>
+    </div>
 </body>
 </html>

@@ -2755,6 +2755,9 @@ ko.templateEngine.prototype['createJavaScriptEvaluatorBlock'] = function (script
 };
 
 ko.templateEngine.prototype['makeTemplateSource'] = function(template, templateDocument) {
+    console.log('here');
+
+
     // Named template
     if (typeof template == "string") {
         templateDocument = templateDocument || document;
@@ -3474,6 +3477,9 @@ ko.nativeTemplateEngine = function () {
 
 ko.nativeTemplateEngine.prototype = new ko.templateEngine();
 ko.nativeTemplateEngine.prototype['renderTemplateSource'] = function (templateSource, bindingContext, options) {
+
+    console.log(arguments)
+
     var useNodesIfAvailable = !(ko.utils.ieVersion < 9), // IE<9 cloneNode doesn't work properly
         templateNodesFunc = useNodesIfAvailable ? templateSource['nodes'] : null,
         templateNodes = templateNodesFunc ? templateSource['nodes']() : null;
@@ -3482,6 +3488,10 @@ ko.nativeTemplateEngine.prototype['renderTemplateSource'] = function (templateSo
         return ko.utils.makeArray(templateNodes.cloneNode(true).childNodes);
     } else {
         var templateText = templateSource['text']();
+        templateText = templateText(options.data);
+
+        console.log('templateText',templateText);
+        
         return ko.utils.parseHtmlFragment(templateText);
     }
 };

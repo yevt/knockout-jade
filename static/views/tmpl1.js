@@ -4,7 +4,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="test-template"><h1>!!!</h1></div>');
+buf.push('<div class="test-template"><h1>Name = ' + escape((interp = name) == null ? '' : interp) + '</h1></div>');
 }
 return buf.join("");
 };

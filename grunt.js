@@ -21,8 +21,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-jade');
-    grunt.loadNpmTasks('grunt-reload');
-
     grunt.registerTask('default', 'watch');
 };
 
