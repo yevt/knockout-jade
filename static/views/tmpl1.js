@@ -4,7 +4,10 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<li data-bind="text: name"></li>');
+buf.push('<h1>');
+var __val__ = name()
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h1><li data-bind="text: name"></li>');
 }
 return buf.join("");
 };

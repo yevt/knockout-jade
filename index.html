@@ -7,15 +7,7 @@
 <body>
     <div class="container">
         Editable: <input type="checkbox" data-bind="checked: isEditable" />
-        <ul data-bind="template: { name: selectTemplate, data: {name:2} }"></ul>
-    </div>
-
-    <div id="view">
-        <li data-bind="text: name"></li>
-    </div>
-
-    <div id="edit">
-        <input data-bind="value: name"></li>
+        <ul data-bind="template: { name: selectTemplate, locals: $root }"></ul>
     </div>
 </body>
 </html>
