@@ -7,15 +7,11 @@ require.config({
     }
 });
 
-
-
-
 require(['ko'], function(ko) {
 
 });
 
-
-require(['ko', 'views/tmpl1'], function(ko, tmpl1) {
+require(['ko', 'views/tmpl1', 'views/tmpl2'], function(ko, tmpl1, tmpl2) {
 
     //define a template source that simply treats the template name as its content
     ko.templateSources.stringTemplate = function(template, templates) {
@@ -48,23 +44,6 @@ require(['ko', 'views/tmpl1'], function(ko, tmpl1) {
         }
     });
 
-//    ko.templateEngine.prototype['renderTemplate'] = function(template, templateDocument, bindingContext, options) {
-//        console.log(arguments);
-//
-//        //var templateSource = this['makeTemplateSource'](template, templateDocument);
-//
-//        //console.log(templateSource);
-//
-//        //var rendered = this['renderTemplateSource'](templateSource, bindingContext, options);
-//
-//        console.log('RENDERED', rendered);
-//
-//        var rendered = require('views/' + template)(bindingContext.data);
-//
-//        return rendered;
-//    };
-
-
 //modify an existing templateEngine to work with string templates
     function createStringTemplateEngine(templateEngine, templates) {
         templateEngine.makeTemplateSource = function(template) {
@@ -73,15 +52,13 @@ require(['ko', 'views/tmpl1'], function(ko, tmpl1) {
         return templateEngine;
     }
 
-
-
     function ViewModel() {
         this.isEditable = ko.observable(false);
 
         this.name = ko.observable('testName');
 
         this.selectTemplate = function() {
-            return this.isEditable() ? 'tmpl1' : 'tmpl1'
+            return this.isEditable() ? 'tmpl1' : 'tmpl2'
         }.bind(this)
     };
 
@@ -92,8 +69,6 @@ require(['ko', 'views/tmpl1'], function(ko, tmpl1) {
     });
 
     var container = document.getElementsByClassName('container')[0];
-
-
 
     ko.setTemplateEngine(createStringTemplateEngine(new ko.nativeTemplateEngine(), viewModel.templates));
     ko.applyBindings(viewModel, container);
