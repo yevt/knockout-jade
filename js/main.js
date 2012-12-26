@@ -2,34 +2,27 @@ require.config({
     baseUrl: '.',
     paths: {
         ko: 'vendor/knockout-2.2.0.debug',
-        ko_jade: 'vendor/knockout-jade-templates',
+        ko_jade: 'vendor/knockout-jade',
         jade: 'static/views/jade',
         views: 'static/views'
     }
 });
 
-require(['ko_jade', 'views/tmpl1', 'views/tmpl2'], function(ko, tmpl1, tmpl2) {
-
-
-
-
-
-
-
-
-
-
-
+require(['ko_jade', 'views/view', 'views/edit'], function(ko, view, edit) {
     function ViewModel() {
         this.isEditable = ko.observable(false);
-
         this.name = ko.observable('testName');
-        this.testVar = 'testVar';
+
+        this.jade_array = [
+            {value: 'jade variable 1 value'},
+            {value: 'jade variable 2 value'},
+            {value: 'jade variable 3 value'}
+        ];
 
         this.selectTemplate = function() {
-            return this.isEditable() ? 'tmpl1' : 'tmpl2'
+            return this.isEditable() ? 'edit' : 'view';
         }.bind(this)
-    };
+    }
 
     var viewModel = new ViewModel();
 
@@ -38,7 +31,6 @@ require(['ko_jade', 'views/tmpl1', 'views/tmpl2'], function(ko, tmpl1, tmpl2) {
     });
 
     var container = document.getElementsByClassName('container')[0];
-
 
     ko.applyBindings(viewModel, container);
 });
