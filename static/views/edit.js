@@ -4,27 +4,27 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<h1>');
+buf.push('<h2>');
 var __val__ = name()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h1><input data-bind="value: name"/><select>');
-// iterate jade_array
+buf.push('</h2><input data-bind="value: name"/><select>');
+// iterate items
 ;(function(){
-  if ('number' == typeof jade_array.length) {
-    for (var $index = 0, $$l = jade_array.length; $index < $$l; $index++) {
-      var jade_var = jade_array[$index];
+  if ('number' == typeof items.length) {
+    for (var $index = 0, $$l = items.length; $index < $$l; $index++) {
+      var item = items[$index];
 
 buf.push('<option>');
-var __val__ = jade_var.value
+var __val__ = item
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</option>');
     }
   } else {
-    for (var $index in jade_array) {
-      var jade_var = jade_array[$index];
+    for (var $index in items) {
+      var item = items[$index];
 
 buf.push('<option>');
-var __val__ = jade_var.value
+var __val__ = item
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</option>');
    }

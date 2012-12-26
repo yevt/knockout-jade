@@ -1,0 +1,10 @@
+{
+    "name": "knockout-jade",
+    "version": "0.0.1",
+    "description": "plugin for knockout to use jade templates",
+    "author": "whitedickedmellows@gmail.com",
+    "dependencies": {
+        "grunt-jade": ">= 0.3.6"
+    },
+    "engine": "node 0.8.x"
+}
