@@ -8,7 +8,7 @@ require.config({
     }
 });
 
-require(['ko_jade', 'views/view', 'views/edit'], function(ko, view, edit) {
+require(['ko_jade'], function(ko) {
     function ViewModel() {
         this.isEditable = ko.observable(false);
         this.name = ko.observable('testName');

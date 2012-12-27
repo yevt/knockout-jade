@@ -3,39 +3,50 @@ define(['ko'], function(ko) {
     var views_prefix = 'views/';
 
     //define a template source that simply treats the template name as its content
-    ko.templateSources.stringTemplate = function(template, templates) {
-        this.templateName = template;
-        this.templates = templates || {};
+    ko.templateSources.stringTemplate = function(templateName) {
+        this.templateName = templateName;
+
+        var loadingTemplate = function() {
+            return 'loading ...';
+        };
+
+        try {
+            var jadeFunc = require(views_prefix + this.templateName);
+            this.templateFunc = ko.observable(jadeFunc);
+        }
+        catch (e) {
+            this.templateFunc = ko.observable(loadingTemplate);
+            require([views_prefix + this.templateName], function(template) {
+                this.templateFunc(template);
+            }.bind(this));
+        }
     };
 
     ko.utils.extend(ko.templateSources.stringTemplate.prototype, {
         data: function(key, value) {
-            console.log("data", key, value, this.templateName);
-            this.templates._data = this.templates._data || {};
-            this.templates._data[this.templateName] = this.templates._data[this.templateName] || {};
-
-            if (arguments.length === 1) {
-                return this.templates._data[this.templateName][key];
+            this.data = this.data || {};
+            if (arguments.length == 1) {
+                return this.data[key];
             }
-
-            this.templates._data[this.templateName][key] = value;
+            this.data[key] = value;
         },
         text: function(value) {
             if (arguments.length === 0) {
                 return require(views_prefix + this.templateName);
             }
-            this.templates[this.templateName] = value;
+            //this.templates[this.templateName] = value;
+            this.rewrittenTemplate = value;
         }
     });
 
-    function createStringTemplateEngine(templateEngine, templates) {
+    function createStringTemplateEngine(templateEngine) {
         templateEngine.makeTemplateSource = function(template) {
-            return new ko.templateSources.stringTemplate(template, templates);
+            return new ko.templateSources.stringTemplate(template);
         };
 
         templateEngine.renderTemplateSource = function(templateSource, bindingContext, options) {
             var locals = options['locals'] || bindingContext['$data'];
-            var templateTextFunc = templateSource['text']();
+            var templateTextFunc = templateSource.templateFunc();
             var templateText = templateTextFunc(locals);
             return ko.utils.parseHtmlFragment(templateText);
         };
